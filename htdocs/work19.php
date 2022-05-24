@@ -56,7 +56,7 @@
 
         if($_SERVER["REQUEST_METHOD"] == "GET"){
             if (isset($_GET["title_text"]) && $_GET['title_text'] != "" && isset($_GET["value_text"]) && $_GET['value_text'] != ""){
-                //$w19->isKey($_GET["title_text"], $inputed);
+                //echo($w19->isKey($_GET["title_text"], $inputed));
                 if(array_key_exists($_GET["title_text"], $inputed)){
                     //echo 'キーあり</br>';
                     for($i = 0 ; $i < $count_size; $i++){
@@ -91,9 +91,10 @@
                     echo $inputed[(string)$titles[$i]];
                     echo '</div>';
                 }
-            }else{
-                echo '入力情報が不足しています';
             }
+            
+        }else{
+            echo '入力情報が不足しています';
         }
         ?>
     </body>
