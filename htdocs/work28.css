@@ -1,0 +1,19 @@
+.image_name{
+    text-align: center;
+}
+.one_image{
+    border-top: black;
+    border-right: black;
+    border-left: black;
+    border-bottom:black;
+    padding-top:10px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom: 20px;
+    background-color: aquamarine;
+}
+
+.images{
+    flex-flow: row wrap;
+    text-align: left;
+}

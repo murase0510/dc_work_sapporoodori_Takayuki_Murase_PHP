@@ -38,7 +38,7 @@
                 } else {
                     $error_msg[] = 'insert実行エラー [実行SQL]' . $insert;
                 }
-                $error_msg[] = '強制的にエラーメッセージを挿入';
+                //$error_msg[] = '強制的にエラーメッセージを挿入';
     
                 //エラーメッセージ格納の有無によりトランザクションの成否を判定
                 if (count($error_msg) == 0) {
@@ -58,7 +58,7 @@
                 } else {
                     $error_msg[] = 'delete実行エラー [実行SQL]' . $delete ;
                 }
-                $error_msg[] = '強制的にエラーメッセージを挿入';
+                //$error_msg[] = '強制的にエラーメッセージを挿入';
     
                 //エラーメッセージ格納の有無によりトランザクションの成否を判定
                 if (count($error_msg) == 0) {

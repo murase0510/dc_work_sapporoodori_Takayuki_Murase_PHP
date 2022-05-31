@@ -2,6 +2,7 @@
     $text = null;
     $choice;
     if (isset($_POST['display_text'])) {
+        echo $_POST['display_text'];
         $text = htmlspecialchars($_POST['display_text'], ENT_QUOTES, 'UTF-8');
     }
 
