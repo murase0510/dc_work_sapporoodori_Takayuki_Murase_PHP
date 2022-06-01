@@ -66,7 +66,6 @@
             $result->bindValue(':image_type', $type, PDO::PARAM_STR);            
             $result->bindValue(':image_size', $size, PDO::PARAM_INT); 
             $result->execute();
-            $result->close();
         }
 
         

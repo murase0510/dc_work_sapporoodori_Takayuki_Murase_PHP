@@ -53,10 +53,9 @@
             var_dump($_POST["upload_image"]);
         */
     ?>
-
-
+</body>
     <?
         //$w28_image = $db->get_one_image(1);
     ?>
-</body>
+
 </html>

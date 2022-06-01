@@ -1,19 +1,38 @@
 .image_name{
+    display: block;
     text-align: center;
+
 }
+
+.image_line{
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    flex-wrap: wrap
+}
+
 .one_image{
-    border-top: black;
-    border-right: black;
-    border-left: black;
-    border-bottom:black;
-    padding-top:10px;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    width: 30%;
+    height: 100%;
+    margin-right: 0;
+    border: solid black;
     padding-left:10px;
     padding-right:10px;
     padding-bottom: 20px;
-    background-color: aquamarine;
+    background-color:brown;
 }
 
 .images{
     flex-flow: row wrap;
     text-align: left;
+    max-width: 50%;
+}
+
+.image{
+    width:50%;
+    height:50%;
+    display:inline;
 }
