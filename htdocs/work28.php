@@ -12,32 +12,55 @@
     <title>work28</title>
 </head>
 <body>
-    <form method="post" enctype="multipart/form-data">
-        <input type="text" name="image_name">
-        <p><input type="file" name="upload_image"></p>
-        <input type="submit" value="送信">
-    </form>
-    <?php 
-        //echo phpversion();
+    <?php
         require_once('./work28_DBAccesser.class.php');
-        //require_once('./work28_image.class.php');
         require_once('./work28_print_image.class.php');
         $db = new work28_DBAccesser();
         $pr = new work28_print_image();
-        //$w28_image = new work28_image();
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            if(isset($_POST['post_pic'])){
+                if($_FILES['upload_image']['size'] == 0){
+                    echo "<div style='color=red'>画像が指定されていません</div>";
+                }
+                if($_POST['image_name'] == ""){
+                    echo "<div style='color=red'>名前が指定されていません</div>";
+                }else if($pr->is_trust_image(($_FILES["upload_image"]["name"])) == false){
+                    echo "<div style='color = red'>正しい形式ではありません</div>";
+                }
+                
+            }
+
+
+        }
+    ?> 
+    <form method="post" enctype="multipart/form-data">
+        <input type="text" name="image_name">
+        <p><input type="file" name="upload_image"></p>
+        <input type="submit" name="post_pic" value="送信">
+    </form>
+    <a href="https://portfolio.dc-itex.com/sapporoodori/0001/work28_print_authenticated_image.php"  >写真一覧ページへ</a>
+    <?php 
+        //echo phpversion();
+
         $image_list = [];
         if($_SERVER["REQUEST_METHOD"] == "POST"){
-            if (isset($_POST["image_name"]) && $_POST['image_name'] != ""/* && isset($_POST["upload_image"]) && $_POST['upload_image'] != ""*/){
-                $type = $_FILES['upload_image']['type'];
-                $content = file_get_contents($_FILES['upload_image']['tmp_name']);
-                $size = $_FILES['upload_image']['size'];
-                
-                $db->set_image($_POST['image_name'],true,$content,$type,$size);
+            if(isset($_POST['post_pic'])){
+                if (isset($_POST["image_name"]) && $_POST['image_name'] != "" && $_FILES["upload_image"]["name"] == "" && $pr->is_trust_image($_FILES["upload_image"]["name"])){
+                    $type = $_FILES['upload_image']['type'];
+                    $content = file_get_contents($_FILES['upload_image']['tmp_name']);
+                    $size = $_FILES['upload_image']['size'];
+                    $db->set_image($_POST['image_name'],true,$content,$type,$size);
+                }
+
+            }elseif(isset($_POST['switch-flag-button'])){
+                $image_flag = substr($_POST['switch-flag-button'],0,1);
+                $image_id = substr($_POST['switch-flag-button'],1);
+                $db->change_flag((int)$image_id,(bool)$image_flag);
             }
         }
         //$image_list = $db->get_all_image();
         //var_dump($image_list);
-        $pr->print_image(1,1);
+        $pr->print_mine_image(1,1);
 
         /*
             $fp = fopen($_FILES['upload_image']['tmp_name'], "rb");

@@ -52,8 +52,6 @@
         function set_image($image_name,$image_flag,$content,$type,$size){
             //生成処理
             date_default_timezone_set('Asia/Tokyo');
-            var_dump($type);
-            var_dump($size);
             //print_r($this->db->errorInfo());
             //$img = fread($fp, filesize($_FILES['upload_image']['tmp_name']));//ここで画像を数値化
             //fclose($fp);
@@ -70,11 +68,12 @@
 
         
         function change_flag($image_id,$image_flag){
+            date_default_timezone_set('Asia/Tokyo');
             $update = "UPDATE image_table SET public_flg = :public_flg WHERE image_id = :image_id;";
-            $result->bindValue(':image_name', $image_name, PDO::PARAM_STR);
+            $result = $this->pdo->prepare($update);
+            $result->bindValue(':image_id', $image_id, PDO::PARAM_INT);
             $result->bindValue(':public_flg', $image_flag, PDO::PARAM_BOOL);
             $result->execute();
-            $result->close();
         }
         
     }
