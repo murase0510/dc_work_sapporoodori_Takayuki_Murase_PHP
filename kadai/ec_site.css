@@ -1,0 +1,12 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+.header_css{
+
+    background-color: aqua;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}

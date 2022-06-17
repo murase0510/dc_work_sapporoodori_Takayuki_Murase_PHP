@@ -20,12 +20,12 @@
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(isset($_POST['post_pic'])){
                 if($_FILES['upload_image']['size'] == 0){
-                    echo "<div style='color=red'>画像が指定されていません</div>";
+                    echo "<div style='color:red'>画像が指定されていません</div>";
                 }
                 if($_POST['image_name'] == ""){
-                    echo "<div style='color=red'>名前が指定されていません</div>";
+                    echo "<div style='color:red'>名前が指定されていません</div>";
                 }else if($pr->is_trust_image(($_FILES["upload_image"]["name"])) == false){
-                    echo "<div style='color = red'>正しい形式ではありません</div>";
+                    echo "<div style='color:red'>正しい形式ではありません</div>";
                 }
                 
             }
@@ -45,7 +45,7 @@
         $image_list = [];
         if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(isset($_POST['post_pic'])){
-                if (isset($_POST["image_name"]) && $_POST['image_name'] != "" && $_FILES["upload_image"]["name"] == "" && $pr->is_trust_image($_FILES["upload_image"]["name"])){
+                if (isset($_POST["image_name"]) && $_POST['image_name'] != "" && !$_FILES["upload_image"]["name"] == "" && $pr->is_trust_image($_FILES["upload_image"]["name"])){
                     $type = $_FILES['upload_image']['type'];
                     $content = file_get_contents($_FILES['upload_image']['tmp_name']);
                     $size = $_FILES['upload_image']['size'];
