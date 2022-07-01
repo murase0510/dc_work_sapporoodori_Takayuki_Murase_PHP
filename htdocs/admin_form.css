@@ -1,0 +1,28 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+table {
+    border-collapse: collapse;
+    margin:0 auto;
+}
+
+th, td {
+    border: solid 1px #333; /* 線の種類 太さ 色 */
+}
+
+td{
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.image{
+    width:50%;
+    height:50%;
+    display:inline;
+}
+
+.background_gray{
+    background-color: gray;
+}

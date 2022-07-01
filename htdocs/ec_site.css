@@ -4,7 +4,7 @@
 }
 
 .header_css{
-    background-color: aqua;
+    background-color:aqua;
     padding-top: 10px;
     padding-left: 10px;
     padding-bottom: 10px;
@@ -30,4 +30,55 @@
 
 .login_for_link{
     font-size:13px;
+}
+
+.created_pre_account{
+    font-size: 20px;
+}
+
+.product_list_form{
+    max-width: 50%;
+    text-align: center;
+    margin:0 auto;
+}
+
+.image{
+    width:20%;
+    height:20%;
+    display:inline;
+}
+
+.image_line{
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    flex-wrap: nowrap;
+}
+
+.one_image{
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    width: 30%;
+    margin-right: 0;
+    border: solid black;
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.background-white{
+    background-color:white;
+}
+
+.background-gray{
+    background-color: gray;
+}
+
+.images{
+    flex-flow: row wrap;
+    text-align: left;
+    max-width: 50%;
 }

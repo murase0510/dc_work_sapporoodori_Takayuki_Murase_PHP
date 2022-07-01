@@ -19,6 +19,7 @@
         $pr = new work36_print();
         if($_SERVER["REQUEST_METHOD"] == "POST"){    
             if(isset($_POST['post_pic'])){
+                
                 $pr->print_error_message($_FILES['upload_image']['size'],$_POST['image_name'],$pr->is_trust_image(($_FILES["upload_image"]["name"])));
             }
         }
