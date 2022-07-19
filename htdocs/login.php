@@ -9,40 +9,27 @@
     <script src="./ec_header_login.js"></script>
     <div class="login_form">
         <?php
-
             require_once('../include/config/ec_const_class.php');
-            require_once('../include/model/ec_DBAccesser_class.php');
-
-            $from_logout = true;
             $ec_c = new ec_const_class();
-            if($_SERVER["REQUEST_METHOD"] == "POST"){
-                if(isset($_POST["logout"])) {
-                $session = session_name();
-                $_SESSION = [];
-                    if (isset($_COOKIE[$session])) {
-                        $params = session_get_cookie_params();
-                        setcookie($session, '', time() - 30, '/');
-                    }
-                $from_logout = false;
-                }
+
+            require_once($ec_c::EC_DBACCESSER_PATH);
+            $ec_db = new ec_DBAccesser_class();
+
+            require_once($ec_c::EC_PRINT_ERROR_MESSAGE_LOGIN);
+            $ec_er = new ec_print_error_message_login();
+
+
+            session_start();
+
+            if(isset($_SESSION[$ec_c::SESSION_USER_ID])){
+                header($ec_c::LOCATION_PRODUCT_LIST);
             }
 
-            if($_SERVER["REQUEST_METHOD"] == "POST" && $from_logout){
-                if(!isset($_POST['mail']) ||$_POST['mail'] == ""){
-                    echo "<div>メールアドレスが空欄です</div>";
-                }else if(authenticate($_POST['mail'],$_POST['password'])){
-                    session_start();
-                    $_SESSION['mail'] = $_POST['mail'];
-                    if($_POST['mail'] == $ec_c::EC_ADMIN){
-                        header("Location: https://portfolio.dc-itex.com/sapporoodori/0001/htdocs/admin_form.php");
-                    }else{
-                        header("Location: https://portfolio.dc-itex.com/sapporoodori/0001/htdocs/product_list.php");
-                    }
-                }
-                if(!isset($_POST['password']) ||$_POST['password'] == ""){
-                    echo "<div>パスワードが空欄です</div>";
-                }
+            
+            if($_SERVER[$ec_c::REQUEST_METHOD] == $ec_c::HTTP_POST){
+                $ec_er->print_error_message($_POST[$ec_c::ATTRIBUTE_NAME_MAIL],$_POST[$ec_c::ATTRIBUTE_NAME_PASSWORD]);
             }
+            
         ?>
         <div class="login_title">ログイン</div>
         <form  method="post">

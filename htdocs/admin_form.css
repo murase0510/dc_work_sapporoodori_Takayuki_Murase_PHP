@@ -26,3 +26,13 @@ td{
 .background_gray{
     background-color: gray;
 }
+
+.error-color{
+    background-color:lightpink;
+    color:red;
+}
+
+.trust_color{
+    background-color: springgreen;
+    color:seagreen;
+}

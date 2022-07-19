@@ -1,13 +1,12 @@
 <?php
-    require_once '../include/config/ec_const_class.php';
-    $ec_c = new ec_const_class();
-    require_once $ec_c::EC_DBACCESSER_PATH;
 
-    class ec_register_account_class{
+    require_once '../include/model/ec_DBAccesser.class.php';
+
+    class ec_register_account{
         public $ec_db;
 
         public function __construct(){
-            $this->ec_db = new ec_DBAccesser_class();
+            $this->ec_db = new ec_DBAccesser();
         }
 
         public function print_register_account($urltoken){

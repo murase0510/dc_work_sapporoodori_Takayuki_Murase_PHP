@@ -1,1 +1,1 @@
-document.write('<div class="header_css">ヘッダー</div>');
+document.write('<header class="header_css">EC SITE</header>');

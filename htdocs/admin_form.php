@@ -8,6 +8,53 @@
 <body>
 
     <h2>商品登録</h2>
+    <?php 
+        session_start();
+
+        require_once('../include/config/ec_const_class.php');
+        $ec_c = new ec_const_class();
+        require_once($ec_c::EC_DBACCESSER_PATH);
+        require_once($ec_c::EC_PRINT_ADMIN_FORM_PATH);
+        require_once($ec_c::EC_PRINT_ERROR_MESSAGE_ADMIN_FORM);
+        
+        $ec_db = new ec_DBAccesser_class();
+        $prn = new ec_print_admin_form_class();
+        $pr_er = new ec_print_error_message_admin_form_class();
+
+        if($_SERVER[$ec_c::REQUEST_METHOD] == $ec_c::HTTP_POST){ 
+            if(isset($_POST[$ec_c::ATTRIBUTE_NAME_POST_PRODUCT])){
+                if(isset($_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_NAME]) && 
+                $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_NAME] != "" && 
+                isset($_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE])&& 
+                $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE] != "" &&
+                (bool)preg_match('/^0$|^-?[1-9][0-9]*$/', $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE]) &&
+                (int)$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE] >= 0 &&
+                isset($_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK]) && 
+                $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK] != "" &&
+                (bool)preg_match('/^0$|^-?[1-9][0-9]*$/', $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK]) && 
+                (int)$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK] >= 0 &&
+                isset($_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_NAME]) && 
+                $_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_NAME] != "" &&
+                is_trist_image_format($_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_NAME])){
+                    $image = file_get_contents($_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_TMP_NAME]);
+                    $ec_db->create_product($_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_NAME],$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE],$_POST[$ec_c::ATTRIBUTE_NAME_RELEASE]);
+                    $product_id = $ec_db->get_last_insert_key();
+                    $ec_db->create_ec_stock($product_id,$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK]);
+                    $ec_db->set_image($product_id,$image,$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_NAME]);
+                    echo"<div class='trust_color'>正常に登録されました</div>";
+                }
+            }
+        }
+
+        function is_trist_image_format($image_name){
+            $ec_c = new ec_const_class();
+            if($ec_c::IMAGE_FORMAT_JPG == substr($image_name, -4) || $ec_c::IMAGE_FORMAT_PNG == substr($image_name, -4)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    ?>
     <form method="post" enctype="multipart/form-data">
         <div>商品名　　：<input type="text" name="product_name"></div>
         <div>価格　　　：<input type="text" name="product_price"></div>
@@ -18,70 +65,28 @@
             <option value="close">非公開</option>
         </select>
         <?php
-            session_start();
 
-            require_once('../include/config/ec_const_class.php');
-            require_once('../include/model/ec_DBAccesser_class.php');
-            require_once('../include/view/ec_print_admin_form_class.php');
-            $ec_c = new ec_const_class();
-            $ec_db = new ec_DBAccesser_class();
-            $prn = new ec_print_admin_form_class();
-
-            if(!$_SESSION['mail'] == $ec_c::EC_ADMIN){
-                if(isset($_POST["logout"])) {
-                    $session = session_name();
-                    $_SESSION = [];
-                        if (isset($_COOKIE[$session])) {
-                            $params = session_get_cookie_params();
-                            setcookie($session, '', time() - 30, '/');
-                        }
-                    }
-                header("Location: ./login.php");
+            if(!$_SESSION[$ec_c::ATTRIBUTE_NAME_MAIL] == $ec_c::EC_ADMIN){
+                header($ec_c::LOCATION_LOGOUT);
             }
 
-            if($_SERVER["REQUEST_METHOD"] == "POST"){   
-                if(isset($_POST['post_product'])){ 
-                    if(!isset($_POST['product_name']) || $_POST['product_name'] == ""){
-                        echo"<div>商品名を入力してください</div>";
-                    }
-                    if(!isset($_POST['product_price']) || $_POST['product_price'] == ""){
-                        echo"<div>値段を入力してください</div>";
-                    }
-                    if(!isset($_POST['product_stock']) || $_POST['product_stock'] == ""){
-                        echo"<div>在庫数を入力してください</div>";
-                    }
-                    if(!isset($_FILES["product_image"]["name"]) || $_FILES["product_image"]["name"] == ""){
-                        echo"<div>画像を指定してください</div>";
-                    }
-                }
+            if($_SERVER[$ec_c::REQUEST_METHOD] == $ec_c::HTTP_POST){   
+                $post_things = $_POST;
+                $pr_er->print_register_error($post_things,$_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_NAME]);
             }
         ?> 
         <div><input type="submit" name="post_product" value="商品を登録する"></div>
     </form>
-    <?php 
-        $image_list = [];
-        if($_SERVER["REQUEST_METHOD"] == "POST"){   
-            if(isset($_POST['post_product'])){
-                if(isset($_POST['product_name']) && $_POST['product_name'] != "" && isset($_POST['product_price'])&& $_POST['product_price'] != "" && isset($_POST['product_stock']) && $_POST['product_stock'] != "" &&isset($_FILES["product_image"]["name"]) && $_FILES["product_image"]["name"] != ""){
-                    $image = file_get_contents($_FILES['product_image']['tmp_name']);
-                    $ec_db->create_product($_POST['product_name'],$_POST['product_price'],$_POST['Release']);
-                    $product_id = $ec_db->get_last_insert_key();
-                    $ec_db->create_ec_stock($product_id,$_POST['product_stock']);
-                    $ec_db->set_image($product_id,$image,$_POST['product_name']);
-                }
-            }
-        }
-    ?>
-    <form action="./login.php" method="post">
+    <form action="./logout.php">
         <input type="hidden" name="logout" value="logout">
         <input type="submit" value="ログアウト">
    </form>
+
+
     <?php
-    if($_SERVER["REQUEST_METHOD"] == "POST"){   
-        if(isset($_POST['change_stock'])){
-            if( $_POST['stock'] == "" ){
-                echo"<div>在庫数を入力してください</div>";
-            }
+    if($_SERVER[$ec_c::REQUEST_METHOD] == $ec_c::HTTP_POST){ 
+        if(isset($_POST[$ec_c::ATTRIBUTE_NAME_CHANGE_STOCK])){
+            $pr_er->print_error_for_stock($_POST[$ec_c::ATTRIBUTE_NAME_STOCK]);
         }
     }
     ?>
@@ -97,20 +102,23 @@
             </tr>
             <?php
                     
-                    if($_SERVER["REQUEST_METHOD"] == "POST"){   
-                        if(isset($_POST['change_stock']) && $_POST['stock'] != ""){
-                            $stock_id = $_POST['change_stock'];
-                            $stock = $_POST['stock'];
+                    if($_SERVER[$ec_c::REQUEST_METHOD] == $ec_c::HTTP_POST){
+                        if(isset($_POST[$ec_c::ATTRIBUTE_NAME_CHANGE_STOCK]) && $_POST[$ec_c::ATTRIBUTE_NAME_CHANGE_STOCK] != "" && preg_match('/^0$|^-?[1-9][0-9]*$/', $_POST[$ec_c::ATTRIBUTE_NAME_STOCK]) && (int)$_POST[$ec_c::ATTRIBUTE_NAME_STOCK] >= 0){
+                            $stock_id = $_POST[$ec_c::ATTRIBUTE_NAME_CHANGE_STOCK];
+                            $stock = $_POST[$ec_c::ATTRIBUTE_NAME_STOCK];
                             $ec_db->update_stock($stock_id,$stock);
-                        }elseif(isset($_POST['switch-flag-button'])){
-                            $product_flag = substr($_POST['switch-flag-button'],0,1);
-                            $product_id = substr($_POST['switch-flag-button'],1);
+                            echo"<div class='trust_color'>正常に在庫が変更されました</div>";
+                        }elseif(isset($_POST[$ec_c::ATTRIBUTE_NAME_SWITCH_FLAG_BUTTON])){
+                            $product_flag = substr($_POST[$ec_c::ATTRIBUTE_NAME_SWITCH_FLAG_BUTTON],0,1);
+                            $product_id = substr($_POST[$ec_c::ATTRIBUTE_NAME_SWITCH_FLAG_BUTTON],1);
                             $ec_db->change_product_flag((int)$product_id,(bool)$product_flag);
-                        }elseif(isset($_POST['delete_product_button'])){
-                            $product_id = $_POST['delete_product_button'];
+                            echo"<div class='trust_color'>正常に公開フラグが変更されました</div>";
+                        }elseif(isset($_POST[$ec_c::ATTRIBUTE_NAME_DELETE_PRODUCT_BUTTON])){
+                            $product_id = $_POST[$ec_c::ATTRIBUTE_NAME_DELETE_PRODUCT_BUTTON];
                             $ec_db->delete_image($product_id);
                             $ec_db->delete_stock($product_id);
                             $ec_db->delete_product($product_id);
+                            echo"<div class='trust_color'>正常に商品が削除されました</div>";
                         }
                     }
                     $prn->print_mine_image();

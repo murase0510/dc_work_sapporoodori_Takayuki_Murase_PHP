@@ -1,14 +1,12 @@
 <?php
 
-    require_once '../include/config/ec_const_class.php';
-    $ec_c = new ec_const_class();
-    require_once $ec_c::EC_DBACCESSER_PATH;
+    require_once '../include/model/ec_DBAccesser.class.php';
 
-    class ec_change_password_class{
+    class ec_change_password{
         public $ec_db;
 
         public function __construct(){
-            $this->ec_db = new ec_DBAccesser_class();
+            $this->ec_db = new ec_DBAccesser();
         }
 
         public function print_change_password($urltoken){
