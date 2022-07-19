@@ -68,7 +68,7 @@
         public const EC_PRINT_ERROR_MESSAGE_APPLY_FOR_CHANGE_PASSWORD = "../include/view/ec_print_error_message_Apply_for_change_password_class.php";
         public const EC_PRINT_ERROR_MESSAGE_CREATE_ACCOUNT = "../include/view/ec_print_error_message_create_account_class.php";
 
-        public const LOCATION_LOGIN = "Location: ./login.php";
+        public const LOCATION_INDEX = "Location: ./index.php";
         public const LOCATION_APPLIED_FOR_CHANGE_PASSWORD = "Location: ./Applied_for_change_password.html";
         public const LOCATION_CHANGED_PASSWORD = "Location: ./changed_password.html";
         public const LOCATION_CREATE_PRE_ACCOUNT = "Location: ./created_pre_account.html";

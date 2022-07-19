@@ -10,5 +10,5 @@
     }
 
     session_destroy();
-    header($ec_c::LOCATION_LOGIN);
+    header($ec_c::LOCATION_INDEX);
 ?>

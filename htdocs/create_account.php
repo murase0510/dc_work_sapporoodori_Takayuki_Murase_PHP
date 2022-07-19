@@ -29,7 +29,7 @@
             <label for="password">パスワード</label><input type="text" id="password" name="password"><br>
             <label for="mail">メールアドレス</label><input type="text" id="mail" name="mail"><br>
             <input type="submit" name="login" value="アカウント作成"><br>
-            <a href="./login.php" class="login_for_link">ログインページへ</a>
+            <a href="./index.php" class="login_for_link">ログインページへ</a>
         </form>
     </div>
     <?php
