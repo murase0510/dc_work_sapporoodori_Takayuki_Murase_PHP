@@ -12,6 +12,7 @@
             $products_size = count($cart_in_products);
             for($i = 0;$i < $products_size;$i++){
                 $product_price = $ec_db->get_one_ec_product($cart_in_products[$i][$ec_c::DB_PRODUCT_ID])[0][$ec_c::DB_PRICE];
+                $stock = $ec_db->get_one_ec_stock($cart_in_products[$i][$ec_c::DB_PRODUCT_ID])[0][$ec_c::DB_STOCK];
                 $purchase_num = $cart_in_products[$i][$ec_c::DB_PURCHASE_NUMBER];
                 echo '<div class="one_product">';
                 $image = $ec_db->get_one_image($cart_in_products[$i][$ec_c::DB_PRODUCT_ID]);
@@ -20,6 +21,7 @@
                 echo '<div class="image_name">'.$image_name[0][$ec_c::DB_PRODUCT_NAME].'</div>';
                 $this->print_delete_button($cart_in_products[$i][$ec_c::DB_PRODUCT_ID]);
                 echo '<div class="product_price">価格：¥'.$product_price.'</div>';
+                echo '<div class="product_stock">在庫：'.$stock.'個</div>';
                 $this->print_update_num_button($cart_in_products[$i][$ec_c::DB_PRODUCT_ID],$purchase_num);
                 echo '</div>';
             }
