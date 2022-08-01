@@ -80,6 +80,7 @@
         public const SESSION_MAIL = "mail";
         public const SESSION_CART_ID = "cart_id";
         public const SESSION_USER_ID = "user_id";
+        public const SESSION_SESSION_TOKEN = "session_token";
 
         public const HTTP_POST = "POST";
         public const REQUEST_METHOD = "REQUEST_METHOD";
@@ -136,6 +137,7 @@
         public const ATTRIBUTE_NAME_PURCHASE_NUMBER = 'Purchase_number';
         public const ATTRIBUTE_NAME_DELETE_BUTTON = 'delete_button';
         public const ATTRIBUTE_NAME_ADJUSTMENT = 'adjustment';
+        public const ATTRIBUTE_NAME_TOKEN = 'token';
 
         public const FILE_UPLOAD_VALIABLE_NAME = "name";
         public const FILE_UPLOAD_VALIABLE_TMP_NAME = "tmp_name";
