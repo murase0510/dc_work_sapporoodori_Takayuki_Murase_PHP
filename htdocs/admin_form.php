@@ -21,28 +21,36 @@
         $prn = new ec_print_admin_form_class();
         $pr_er = new ec_print_error_message_admin_form_class();
 
-        if($_SERVER[$ec_c::REQUEST_METHOD] == $ec_c::HTTP_POST){ 
-            if(isset($_POST[$ec_c::ATTRIBUTE_NAME_POST_PRODUCT])){
-                if(isset($_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_NAME]) && 
-                $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_NAME] != "" && 
-                isset($_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE])&& 
-                $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE] != "" &&
-                (bool)preg_match('/^0$|^-?[1-9][0-9]*$/', $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE]) &&
-                (int)$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE] >= 0 &&
-                isset($_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK]) && 
-                $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK] != "" &&
-                (bool)preg_match('/^0$|^-?[1-9][0-9]*$/', $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK]) && 
-                (int)$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK] >= 0 &&
-                isset($_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_NAME]) && 
-                $_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_NAME] != "" &&
-                is_trist_image_format($_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_NAME])){
-                    $image = file_get_contents($_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_TMP_NAME]);
-                    $ec_db->create_product($_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_NAME],$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE],$_POST[$ec_c::ATTRIBUTE_NAME_RELEASE]);
-                    $product_id = $ec_db->get_last_insert_key();
-                    $ec_db->create_ec_stock($product_id,$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK]);
-                    $ec_db->set_image($product_id,$image,$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_NAME]);
-                    echo"<div class='trust_color'>正常に登録されました</div>";
-                }
+
+
+        if(isset($_POST[$ec_c::ATTRIBUTE_NAME_POST_PRODUCT])){
+            //リロード対策の参考サイト:https://techacademy.jp/magazine/41842
+            // POSTされたトークンを取得
+            $token = isset($_POST[$ec_c::ATTRIBUTE_NAME_TOKEN]) ? $_POST[$ec_c::ATTRIBUTE_NAME_TOKEN] : "";
+            // セッション変数のトークンを取得
+            $session_token = isset($_SESSION[$ec_c::SESSION_SESSION_TOKEN]) ? $_SESSION[$ec_c::SESSION_SESSION_TOKEN] : "";
+            // セッション変数のトークンを削除
+            unset($_SESSION[$ec_c::SESSION_SESSION_TOKEN]);
+            if(isset($_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_NAME]) && 
+            $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_NAME] != "" && 
+            isset($_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE])&& 
+            $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE] != "" &&
+            (bool)preg_match('/^0$|^-?[1-9][0-9]*$/', $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE]) &&
+            (int)$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE] >= 0 &&
+            isset($_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK]) && 
+            $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK] != "" &&
+            (bool)preg_match('/^0$|^-?[1-9][0-9]*$/', $_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK]) && 
+            (int)$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK] >= 0 &&
+            isset($_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_NAME]) && 
+            $_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_NAME] != "" &&
+            is_trist_image_format($_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_NAME]) &&
+            $token != "" && $token == $session_token){
+                $image = file_get_contents($_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_TMP_NAME]);
+                $ec_db->create_product($_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_NAME],$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_PRICE],$_POST[$ec_c::ATTRIBUTE_NAME_RELEASE]);
+                $product_id = $ec_db->get_last_insert_key();
+                $ec_db->create_ec_stock($product_id,$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_STOCK]);
+                $ec_db->set_image($product_id,$image,$_POST[$ec_c::ATTRIBUTE_NAME_PRODUCT_NAME]);
+                echo"<div class='trust_color'>正常に登録されました</div>";
             }
         }
 
@@ -74,8 +82,15 @@
                 $post_things = $_POST;
                 $pr_er->print_register_error($post_things,$_FILES[$ec_c::ATTRIBUTE_NAME_PRODUCT_IMAGE][$ec_c::FILE_UPLOAD_VALIABLE_NAME]);
             }
+
+            // 二重送信防止用トークンの発行
+            $token = uniqid('', true);
+
+            //トークンをセッション変数にセット
+            $_SESSION[$ec_c::SESSION_SESSION_TOKEN] = $token;
         ?> 
         <div><input type="submit" name="post_product" value="商品を登録する"></div>
+        <input type="hidden" name="token" value="<?php echo $token;?>">
     </form>
     <form action="./logout.php">
         <input type="hidden" name="logout" value="logout">
