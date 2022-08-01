@@ -232,6 +232,12 @@ header{
     max-width: 20%;
 }
 
+.product_stock{
+    display:inline;
+    vertical-align: middle;
+    margin-right:50px;
+}
+
 .purchased_image_name{
     display:inline;
     vertical-align: middle;
