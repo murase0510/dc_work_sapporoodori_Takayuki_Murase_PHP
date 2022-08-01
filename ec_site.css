@@ -1,0 +1,254 @@
+header{
+    background-color:aqua;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
+*{
+    margin:0;
+    padding:0;
+}
+
+.header_css{
+    padding-left: 50px; 
+}
+
+.login_form{
+    position: absolute; 
+    text-align: center;
+    width: 80%;
+    height:80%;
+    top:  0;                     
+    bottom:  0;                  
+    left:  0;                    
+    right:  0;                  
+    margin:  auto;    
+    border-radius: 10px;  
+}
+
+.login_title{
+    font-size:40px;
+    margin-bottom:30px;
+}
+
+.login_for_link{
+    font-size:13px;
+}
+
+.created_pre_account{
+    font-size: 20px;
+}
+
+.product_list_form{
+    position: relative;
+    max-width: 50%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 80px;
+}
+
+.image{
+    width:50%;
+    display:inline;
+}
+
+.image_line{
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    flex-wrap: nowrap;
+}
+
+.one_image{
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    width: 30%;
+    margin-right: 0;
+    border: solid black;
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.background-white{
+    background-color:white;
+}
+
+.background-gray{
+    background-color: gray;
+}
+
+.images{
+    flex-flow: row wrap;
+    text-align: left;
+    max-width: 50%;
+}
+
+.header-right {
+    padding-left: 50px;
+    float: right;
+    color: white;
+}
+
+.header_post_logout{
+    display:inline;
+}
+
+.one_product{
+    border: solid black;
+    margin-bottom: 40px;
+}
+
+.cart_in_products{
+    vertical-align: middle;
+}
+
+.cart_image{
+    display:inline;
+    vertical-align: middle;
+}
+
+.image_name{
+    display:inline;
+    vertical-align: middle;
+    margin-right:100px;
+}
+
+.delete_button{
+    display:inline;
+    vertical-align: middle;
+    margin-right: 40px;
+}
+
+.num_button{
+    display:inline;
+    vertical-align: middle;
+    margin-right: 40px;
+}
+
+.num_button_form{
+    display:inline;
+    vertical-align: middle;
+}
+
+.cart_form{
+    position: relative;
+    max-width: 80%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 80px;
+}
+
+.product_price{
+    display:inline;
+    vertical-align: middle;
+    margin-right: 40px;
+}
+
+.cart_image_size{
+    max-width: 20%;
+}
+
+.purchase_number{
+    display:inline;
+    vertical-align: middle;
+    margin-left:40px
+}
+
+.message {
+    float: right;
+    max-width: 80%;
+    height: 40px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #8ab3dc;
+    cursor: pointer;
+    box-shadow: 0 4px #818694;
+}
+
+.btn:hover {
+    opacity: 1;
+}
+
+.btn {
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+    display: inline-block;
+    opacity: 0.8;
+    border-radius: 4px;
+    border-width: 0;
+}
+
+.message:active {
+    box-shadow: none;
+    position: relative;
+    top: 7px;
+}
+
+.cost{
+    float:left;
+    font-weight: 600;
+}
+
+.purchase_message{
+    margin-bottom:20px;
+    background-color:rgb(248, 235, 211);
+    color:gold;
+}
+
+.error-color{
+    background-color:lightpink;
+    color:red;
+}
+
+.trust_color{
+    background-color: springgreen;
+    color:seagreen;
+}
+
+.purchased_products{
+    position: relative;
+    max-width: 80%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 80px;
+}
+
+.product_image{
+    display: inline;
+    vertical-align: middle;
+}
+
+.product_image_size{
+    max-width: 20%;
+}
+
+.product_stock{
+    display:inline;
+    vertical-align: middle;
+    margin-right:50px;
+}
+
+.purchased_image_name{
+    display:inline;
+    vertical-align: middle;
+    margin-right:100px;
+    margin-left: 80px;
+}
+
+.logout{
+    margin-left:30px;
+}
+
+.cart_back_to_product_list{
+    margin-right: 40px;
+}
