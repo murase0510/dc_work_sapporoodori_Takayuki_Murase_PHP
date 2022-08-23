@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>js_sapporoodori_murase</title>
+    <link rel="stylesheet" href="./js_sapporoodori_murase.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class = "b_color">
+    <div class = "container">
+        <div class = "song_title" id = "song_title"></div>
+        <div class = "Ringing" id = "Ringing">emp</div>
+        <div class = "keyboard">
+            <div class ="hannon">
+                <div class = "C_shape hannonkey">ド#</div>
+                <div class = "D_shape hannonkey">レ＃</div>
+                <div class = "F_shape hannonkey">ファ#</div>
+                <div class = "G_shape hannonkey">ソ＃</div>
+                <div class = "A_shape hannonkey">ラ＃</div>
+            </div>
+            <div class ="zennon">
+                <div class = "key">ド</div>
+                <div class = "key">レ</div>
+                <div class = "key">ミ</div>
+                <div class = "key">ファ</div>
+                <div class = "key">ソ</div>
+                <div class = "key">ラ</div>
+                <div class = "key">シ</div>
+            </div>
+        </div>
+        <div id = "auto_ringing_btn" class="auto_ringing_btn">自動演奏ボタン<div>
+    </div>
+    <script src="const_class.js" ></script>
+    <script>
+        var timer;
+        var count = 0;
+        var id = 0;
+        var ringing = true;
+
+        //読み込んでいるクラスの最後尾の文字が"key"である箇所がクリックされたら実行
+        $("[class$='key']").click(function(){
+            $('#Ringing').text($(this).text());
+            clearTimeout(timer);
+            timer = setTimeout(() => {$('#Ringing').text(emp)}, 1000);
+        });
+
+        //自動演奏についての機能。自動演奏ボタン、または演奏中止ボタンをクリックしたら以下を実行
+        $("#auto_ringing_btn").click(function(){
+            //演奏中止ボタンをクリックした時に実行
+            if($('#auto_ringing_btn').text() == stop){
+                ringing = false;
+                $('#auto_ringing_btn').text(auto_ringing);
+            //自動演奏ボタンをクリックしたら実行
+            }else{
+                ringing = true;
+                $('#auto_ringing_btn').text(stop);
+            }
+            desitionSong();   
+        });
+
+        //流す曲の決定。
+        function desitionSong(){
+            which_is =  Math.floor(Math.random() * 2);
+            if(ringing && which_is){
+                sing_song(kirakiraboshi_score);
+                $('#song_title').text("自動演奏中です:" + kirakiraboshi_title);
+            }else if(ringing && !which_is){
+                sing_song(tulip_score);
+                $('#song_title').text("自動演奏中です:" + tulip_title);
+            }
+        }
+
+        //引用元：https://note.affi-sapo-sv.com/js-sleep.php
+        const sleep = waitTime => new Promise( (resolve,reject) =>{
+            id = setTimeout(resolve, waitTime)
+            if(!ringing){
+                clearTimeout(id);
+            }
+        });
+        
+        const sing_song = async function(score){
+            for(let i = 0;score.length>i;i++){
+                console.log(score[i].sound);
+                $('#Ringing').text(score[i].sound);
+                await sleep(score[i].milli);
+                console.log(id);
+                if(i == score.length -2){
+                    $('#auto_ringing_btn').text(auto_ringing);
+                }
+                if(!ringing){
+                    break;
+                }
+            }
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+.container{
+    position: absolute; 
+    text-align: center;
+    width: 80%;
+    height:80%;
+    top:  0;                     
+    bottom:  0;                  
+    left:  0;                    
+    right:  0;                  
+    margin:  auto;    
+    border-radius: 10px;
+}
+
+.Ringing{
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    font-size:500%;
+}
+
+.song_title{
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    font-size:300%;
+}
+
+.Ringing div{
+    display:inline-block;
+}
+
+.keyboard{
+    width:100%;
+    border-radius: 10px;
+    bottom: 0;
+    margin: 0 ;
+    justify-content: center;
+
+}
+
+.hannon{
+    width:100%;
+    position: absolute;
+}
+
+.hannonkey{
+    width:8%;
+    position: absolute;
+    display:inline-block;
+    color:white;
+    background-color: black;
+}
+
+.C_shape{
+    position: absolute;
+    left:  12%;                     
+}
+
+.D_shape{
+    left:  25%;  
+}
+
+.F_shape{
+    left:  53%; 
+}
+
+.G_shape{
+    left:  67%; 
+}
+
+.A_shape{
+    left:  81%; 
+}
+
+.key{
+    width: 13%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 5px;
+    color:black;
+    font-size: 200%;
+    background-color: white;
+    display: inline-block;
+}
+
+.auto_ringing_btn{
+    margin-top:20px;
+    border: solid;
+    border-color: #031de2;
+    width: 50%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 5px;
+    color:black;
+    font-size: 200%;
+    background-color: white;
+    display: inline-block;
+}
+
+.b_color{
+    background-color: greenyellow;
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Takayuki Murase's Portfolio</title>
+        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    </head>
+    <body>
+        <header>
+            <h1 class="header-left"><span class="head_name_color">T</span>akayuki Murase's Portfolio</h1>
+            <ul class="header-right">
+                <li id="Self_introduce_btn"><a href="#" class="header-link">自己紹介</a></li>
+                <li id="sample_btn"><a href="#" class="header-link margin-left_40px">実装サンプル</a></li>
+            </ul>
+
+            <button type="button" class="menu-btn">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+            <div class="clear_both"></div>
+            <div class="menu">
+                <div id="menu_Self_introduce_btn"><a href="#" class="header-link">自己紹介</a></div>
+                <div id="menu_sample_btn"><a href="#" class="header-link">実装サンプル</a></div>
+            </div>
+        </header>
+        <div class="top-wrapper"></div>
+        <div class="message-wrapper">
+            <p class="Self_introduce" id="Self_introduce"></p>
+                <h2 class="h2_status margin-top_80px">
+                    自己紹介
+                    <span class="h2_status_romaji">Self introduce</span>
+                </h2>
+            <p class="Self_introduce_text margin-top_40px">私の名前は<strong>村瀬　尊好</strong>です。北海道出身で、現在はディーキャリアITエキスパート札幌オフィスにて、プログラミングの学習に取り組んでいます。どうぞよろしくお願いします。</p>
+            <img class="img01" alt=”” src="./images/img01.jpg">
+            <div class="favorite">
+                <div class="favorite_box">
+                    <h3 class="favorite_title">スキル<span class="favorite_title_eng">Skills</span></h3>
+                    <ul class="list_status">
+                        <li class="margin-top_20px favorite_thing">HTML/CSS</li>
+                        <li class="favorite_thing">PHP/MySQL</li>
+                        <li class="favorite_thing">JavaScript</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clear_left"></div>
+            <h2 class="h2_status margin-top_80px" id="sample">
+                実装サンプル
+                <span class="h2_status_romaji">sample</span>
+            </h2>
+            <h3 class="top_underber margin-bottom_40px margin-top_80px">画像ギャラリー</h3>
+            <div class="pictures">
+                <div class="picture">
+                    <img src="./images/gallery01.jpg" alt=”” class="vertical-align_bottom">
+                    <h4 class="picture_memo">宇宙飛行士と月</h4>
+                    <p class="picture_text">幻想的な色彩の月と雲の前に、宇宙飛行士が立っています。</p>
+                </div>
+                <div class="picture">
+                    <img src="./images/gallery02.jpg" alt=”” class="vertical-align_bottom">
+                    <h4 class="picture_memo">朝日と石</h4>
+                    <p class="picture_text">積み重ねられた石を、朝日が照らしています。</p>
+                </div>
+                <div class="picture">
+                    <img src="./images/gallery03.jpg" alt=”” class="vertical-align_bottom">
+                    <h4 class="picture_memo">鏡のような湖</h4>
+                    <p class="picture_text">空と海がどちらかわからなくなるような、鏡のような湖です。</p>
+                </div>
+                <div class="picture">
+                    <img src="./images/gallery04.jpg" alt=”” class="vertical-align_bottom">
+                    <h4 class="picture_memo">ハートの風船</h4>
+                    <p class="picture_text">青空をバックに、たくさんの色とりどりのハートの風船が浮いています。</p>
+                </div>
+            </div>
+            <h3 class="top_underber margin-bottom_40px margin-top_80px">訓練課題</h3>
+            <div class="kadai_pictures">
+                <div class="kadai_picture">
+                    <h4 class="kadai_picture_title">JavaScript課題</h4>
+                    <a href="./js_sapporoodori_murase.html"><img src="./images/js_kadai.png" alt=”” class="vertical-align_bottom"></a>
+                    <p class="kadai_picture_text">
+                        　これは疑似的なピアノアプリです。鍵盤をクリックするとその音階が上に表示されます。"自動演奏ボタン"を入力すれば"チューリップ"または"きらきら星"の順で音階が表示されます。<br>
+                       　 感想ですが、コードを見返してみてPromiseをうまく理解できてないな、と感じました。"自動演奏ボタン"にはn秒待つ、という処理があるのですが、そこでsetTimeOutを用いています。今思うとsetTimeOutではなく他に方法はあったのではないか、と思っています。
+                    </p>
+                </div>
+                <div class="kadai_picture margin-top_40px">
+                    <h4 class="kadai_picture_title">PHP課題</h4>
+                    <a href="https://portfolio.dc-itex.com/sapporoodori/0001/htdocs/index.php"><img src="./images/php_kadai.png" alt=”” class="vertical-align_bottom"></a>
+                    <p class="kadai_picture_text">
+                        　疑似的なECサイトです。難易度はDキャリアの教科書を全て把握できていれば決して高いものではありませんでした。だからといって手を抜くことはなく、最大限美しく書いたつもりです。ご精査ください。
+                    </p>
+                </div>
+                <div class="kadai_picture margin-top_40px">
+                    <h4 class="kadai_picture_title">WordPress課題</h4>
+                    <a href="https://portfolio.dc-itex.com/sapporoodori/0001/wp/"><img src="./images/wp_kadai.png" alt=”” class="vertical-align_bottom"></a>
+                    <p class="kadai_picture_text">疑似的な企業のサイトです。WordPressではWordPressで指定されたhtmlファイルを用意しておけば、WordPressが読み取ってくれる。ということまでは理解できました</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="Copyright">Copyright ©︎ 2022 Takayuki Murase</div>
+        </footer>
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script>
+            $("#Self_introduce_btn").click(function(){
+                const position = $("#Self_introduce").offset().top;
+                const speed = 600;
+                console.log(position);
+                $("html,body").animate({scrollTop:position},speed);
+                return false;
+            });
+
+            $("#sample_btn").click(function(){
+                const position = $("#sample").offset().top;
+                const speed = 600;
+                $("html,body").animate({scrollTop:position},speed);
+            });
+
+            $("#menu_Self_introduce_btn").click(function(){
+                const position = $("#Self_introduce").offset().top;
+                const speed = 600;
+                console.log(position);
+                $("html,body").animate({scrollTop:position},speed);
+                return false;
+            });
+
+            $("#menu_sample_btn").click(function(){
+                const position = $("#sample").offset().top;
+                const speed = 600;
+                $("html,body").animate({scrollTop:position},speed);
+            });
+
+            //ハンバーガーメニュー参考:https://eclair.blog/make-hamburger-menu-with-javascript/
+            document.querySelector('.menu-btn').addEventListener('click', function(){
+                document.querySelector('.menu').classList.toggle('is-active');
+            });
+        </script>
+    </body>
+</html>
