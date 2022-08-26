@@ -7,7 +7,7 @@
         function no_session(){
             $ec_c = new ec_const_class();
             if (($_SESSION[$ec_c::SESSION_USER_ID] == '') || (!isset($_SESSION[$ec_c::SESSION_USER_ID]))) {
-                header($ec_c::LOCATION_LOGIN);
+                header($ec_c::LOCATION_INDEX);
             }
         }
     }
