@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -18,14 +21,10 @@
             require_once($ec_c::EC_PRINT_ERROR_MESSAGE_LOGIN);
             $ec_er = new ec_print_error_message_login();
 
-
-            session_start();
-
             if(isset($_SESSION[$ec_c::SESSION_USER_ID])){
                 header($ec_c::LOCATION_PRODUCT_LIST);
             }
 
-            
             if($_SERVER[$ec_c::REQUEST_METHOD] == $ec_c::HTTP_POST){
                 $ec_er->print_error_message($_POST[$ec_c::ATTRIBUTE_NAME_MAIL],$_POST[$ec_c::ATTRIBUTE_NAME_PASSWORD]);
             }
